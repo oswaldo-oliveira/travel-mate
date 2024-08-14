@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${TRAVELMATE_DATABASE_USER}
+      POSTGRES_DB: ${TRAVELMATE_DATABASE_NAME}
+      POSTGRES_PASSWORD: ${TRAVELMATE_DATABASE_PASSWORD}
+    volumes:
+     -  db:/var/lib/postgresql/data
+
+volumes:
+  db:
+    driver: local
