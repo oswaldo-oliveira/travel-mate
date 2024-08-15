@@ -11,6 +11,21 @@ services:
     volumes:
      -  db:/var/lib/postgresql/data
 
+  app:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
+    environment:
+      TRAVELMATE_DATABASE_HOST: ${TRAVELMATE_DATABASE_HOST}
+      TRAVELMATE_DATABASE_NAME: ${TRAVELMATE_DATABASE_NAME}
+      TRAVELMATE_DATABASE_USER: ${TRAVELMATE_DATABASE_USER}
+      TRAVELMATE_DATABASE_PORT: ${TRAVELMATE_DATABASE_PORT:-5432}
+      TRAVELMATE_DATABASE_PASSWORD: ${TRAVELMATE_DATABASE_PASSWORD:-db}
+    depends_on:
+      - db
+
 volumes:
   db:
     driver: local
